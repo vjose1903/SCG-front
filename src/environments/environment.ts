@@ -10,7 +10,8 @@ export const environment = {
   ms_url: 'wsvjosee.loca.lt',
   // ms_url: "localhost:5000",
   // backend_url: 'http://localhost:3200/api/v1',
-  backend_url: 'http://192.168.0.134:3200/api/v1',
+  // backend_url: 'http://192.168.0.134:3200/api/v1',
+  backend_url: 'https://backend.scgsystem.codes/api/v1',
   apiKeyGoogle: 'AIzaSyAxkaTYSKqdJ8_9IZOrfwZHQ75ynLmDci8',
 };
 
