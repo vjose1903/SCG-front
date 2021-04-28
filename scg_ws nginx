@@ -1,0 +1,36 @@
+server {
+  root /usr/share/nginx/html;
+  index index.html index.htm index.nginx-debian.html;
+  server_name scgsystem.codes *.scgsystem.codes;
+  gzip on;
+
+  location / {
+    try_files $uri $uri/ /index.html
+    proxy_set_header X-Forwarder-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-NginX-Proxy true;
+    proxy_pass http://localhost:5800;
+    proxy_redirect off;
+  }
+
+  listen 443 ssl http2; # managed by Certbot
+  ssl_certificate /etc/letsencrypt/live/scgsystem.codes/fullchain.pem; # managed by Certbot
+  ssl_certificate_key /etc/letsencrypt/live/scgsystem.codes/privkey.pem; # managed by Certbot
+  include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+  ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+}
+
+server {
+  if ($host = scgsystem.codes) {
+    return 301 https://$host$request_uri;
+  } # managed by Certbot
+
+  if ($host = www.scgsystem.codes) {
+    return 301 https://scgsystem.codes$request_uri;
+  }
+
+  listen 80;
+  listen [::]:80;
+  server_name scgsystem.codes www.scgsystem.codes;
+  return 404; # managed by Certbot
+}

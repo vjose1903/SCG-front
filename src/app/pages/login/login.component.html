@@ -1,0 +1,25 @@
+<div class="h-100">
+  <div class="row h-100 no_overflow">
+    <div class="col-12 col-md-8 d-flex justify-content-center align-items-center logo_col">
+      <img src="assets/img/SCG-logo.png" class="logo animated {{ ventana <= 991 ? 'fadeInRightBig' : '' }}" alt="" />
+    </div>
+    <div class="col-12 col-md-4 d-flex align-items-start align-items-md-center justify-content-center justify-content-md-start">
+      <div class="card card-login animated fadeInRightBig">
+        <h3 class="text-center text-white">LOGIN</h3>
+        <form [formGroup]="form" (submit)="login()">
+          <div class="form-group">
+            <label class="login-label">Usuario</label>
+            <input type="text" formControlName="usuario" class="form-control input-fondo-red" placeholder="Usuario" />
+          </div>
+
+          <div class="form-group">
+            <label class="login-label">Contaseña</label>
+            <input type="password" formControlName="password" class="form-control input-fondo-red" placeholder="Contaseña" />
+          </div>
+
+          <button class="btn btn-secundary w-100" style="border-radius: 30px">Iniciar Sesión</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

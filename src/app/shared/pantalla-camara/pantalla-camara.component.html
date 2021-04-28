@@ -1,0 +1,30 @@
+<div class="d-flex justify-content-center h-100-vh bg-black" id="camara_content">
+  <div class="position-relative w-100 bg-black">
+    <div class="mensajes position-absolute">
+      <div *ngIf="pos" class="hole" [ngStyle]="{ left: pos?.x + 'px', top: pos?.y + 'px', width: pos?.w + 'px', height: pos?.h + 'px' }"></div>
+      <span class="label" [ngStyle]="{ color: colorMsg }"> {{ msgWebS?.msg }} &nbsp; </span>
+      <!-- <img src="assets/img/faceScann.gif" alt=""> -->
+    </div>
+
+    <!--
+      [height]="480"
+      [width]="640"
+    -->
+
+    <!-- [height]="ventana?.height - 100" -->
+    <webcam
+      *ngIf="initCamara"
+      [width]="ventana?.width"
+      [height]="ventana?.height"
+      [trigger]="triggerObservable"
+      (imageCapture)="handleImage($event)"
+      [allowCameraSwitch]="allowCameraSwitch"
+      [switchCamera]="nextWebcamObservable"
+      [videoOptions]="videoOptions"
+      [imageQuality]="1"
+      (cameraSwitched)="cameraWasSwitched($event)"
+      (initError)="handleInitError($event)"
+    ></webcam>
+  </div>
+</div>
+<!-- <button pButton type="button" label="Iniciar el reconocimiento" (click)="p2()"></button> -->

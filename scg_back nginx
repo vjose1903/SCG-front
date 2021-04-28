@@ -1,0 +1,46 @@
+upstream app {
+  # Path to Puma SOCK file, as defined previously
+  server unix:/home/vjvasquez1903/SCG-system-backend/tmp/sockets/puma.sock fail_timeout=0;
+}
+
+server {
+  listen 80;
+  server_name backend.scgsystem.codes;
+
+  root /home/vjvasquez1903/SCG-system-backend/public;
+
+  try_files $uri/index.html $uri @app;
+
+  location @app {
+    proxy_pass http://app;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_redirect off;
+  }
+
+  listen 443 ssl http2; # managed by Certbot
+  ssl_certificate /etc/letsencrypt/live/backend.scgsystem.codes/fullchain.pem; # managed by Certbot
+  ssl_certificate_key /etc/letsencrypt/live/backend.scgsystem.codes/privkey.pem; # managed by Certbot
+  include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+  ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+  error_page 500 502 503 504 /500.html;
+  client_max_body_size 4G;
+  keepalive_timeout 10;
+}
+
+server {
+  if ($host = backend.scgsystem.codes) {
+    return 301 https://$host$request_uri;
+  } # managed by Certbot
+
+  if ($host = www.backend.scgsystem.codes) {
+    return 301 https://backend.scgsystem.codes$request_uri;
+  }
+
+  listen 80;
+  listen [::]:80;
+  server_name backend.scgsystem.codes www.backend.scgsystem.codes;
+  return 404; # managed by Certbot
+}
+

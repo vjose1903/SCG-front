@@ -1,0 +1,55 @@
+/* You can add global styles to this file, and also import other style files */
+
+.body {
+  width: 100%;
+}
+
+.h-100-vh {
+  height: 100vh;
+}
+
+.row {
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+}
+.divisor_0 {
+  margin: 0;
+}
+
+.no_overflow {
+  overflow: hidden;
+}
+
+.input-fondo-red {
+  background-color: #ffffffdb !important;
+  &:hover {
+    background-color: #dddddddb !important;
+  }
+  &:focus {
+    background-color: #bebebedb !important;
+  }
+}
+
+.btn-secundary {
+  background-color: #535353 !important;
+
+  &:hover {
+    background-color: #464646 !important;
+  }
+  &:active {
+    background-color: #3a3a3a !important;
+  }
+}
+
+.bg-black {
+  background-color: black;
+}
+
+.webcam-wrapper {
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  > video {
+    width: 100%;
+  }
+}
