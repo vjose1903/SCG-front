@@ -56,7 +56,6 @@ export class CrudG<T> {
     if (id) url += `/${id}`;
     if (_.has(args, 'afterPath')) url += `/${args.afterPath}`;
     if (_.has(args, 'parameters')) url += this.parseParams(args.parameters);
-    alert(url);
 
     return url;
   }

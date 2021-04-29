@@ -7,7 +7,8 @@ export const environment = {
   // ms_url: '192.168.0.116',
   // ms_url: '29f0f6dbc0ca.ngrok.io',
   // ms_url: 'vjosews.loca.lt',
-  ms_url: 'wsvjosee.loca.lt',
+  ms_url: 'ws.scgsystem.codes:5000',
+
   // ms_url: "localhost:5000",
   // backend_url: 'http://localhost:3200/api/v1',
   // backend_url: 'http://192.168.0.134:3200/api/v1',

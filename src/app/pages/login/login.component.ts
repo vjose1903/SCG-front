@@ -33,15 +33,13 @@ export class LoginComponent implements OnInit {
   login() {
     const obj_form = this.form.value;
     const extra = { afterPath: 'sign_in' };
-    alert('haciendo login');
 
     new AuthC().createOne(obj_form, extra).then(
       (res) => {
-        alert('CORRECTO');
         this.router.navigateByUrl('/dashboard');
       },
       (err) => {
-        alert(err);
+        console.error(err);
       },
     );
   }
