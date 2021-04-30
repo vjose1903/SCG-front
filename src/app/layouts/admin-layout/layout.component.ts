@@ -7,6 +7,7 @@ import { Subscription, Observable } from 'rxjs';
 import PerfectScrollbar from 'perfect-scrollbar';
 import { FunctionsService } from 'src/app/core/services/functions.service';
 import { WebSocketService } from 'src/app/core/services/web-socket.service';
+import { colors } from 'src/app/core/typescript/GLOBAL';
 
 @Component({
   selector: 'app-admin-layout',
@@ -17,8 +18,20 @@ export class AdminLayoutComponent implements OnInit {
   private _router: Subscription;
   private lastPoppedUrl: string;
   private yScrollStack: number[] = [];
+  classContent: string;
 
-  constructor(public location: Location, private router: Router, private fun: FunctionsService, public ws: WebSocketService) {}
+  conPadd = ['reconocimiento_facial', 'ocr'];
+  colorPad = { reconocimiento_facial: colors.black, ocr: colors.black };
+
+  subWindowSize: Subscription;
+
+  constructor(public location: Location, private router: Router, private fun: FunctionsService, public ws: WebSocketService) {
+    router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd) {
+        this.checkPadding();
+      }
+    });
+  }
 
   ngOnInit() {
     const isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
@@ -57,6 +70,10 @@ export class AdminLayoutComponent implements OnInit {
       let ps = new PerfectScrollbar(elemMainPanel);
       ps = new PerfectScrollbar(elemSidebar);
     }
+
+    this.subWindowSize = this.fun.getWindowSize.subscribe((res) => {
+      this.checkPadding();
+    });
   }
 
   ngAfterViewInit() {
@@ -64,14 +81,36 @@ export class AdminLayoutComponent implements OnInit {
     this.ws.connect().toPromise();
   }
 
+  checkPadding() {
+    const temp_url = document.location.href.split('app/');
+    const url = temp_url[1].split('/');
+
+    this.setPaddingContent(this.conPadd.includes(url[0]), this.colorPad[url[0]]);
+  }
+
+  setPaddingContent(lleva_padding, color?) {
+    const nav_height = document.getElementById('my_navbar').offsetHeight;
+    const array_styles = [
+      { id: 'main-panel', styles: `padding-top: 0px ; background-color: transparent` },
+      { id: 'my_navbar', styles: `position: none` },
+    ];
+
+    if (lleva_padding) {
+      array_styles[0].styles = `padding-top: ${nav_height}px ${color ? `!important; background-color: ${color}` : ''}`;
+      array_styles[1].styles = `position: absolute`;
+    }
+
+    array_styles.forEach((element) => {
+      document.getElementById(element.id).setAttribute('style', element.styles);
+    });
+  }
+
   isMaps(path) {
     var titlee = this.location.prepareExternalUrl(this.location.path());
     titlee = titlee.slice(1);
-    if (path == titlee) {
-      return false;
-    } else {
-      return true;
-    }
+
+    if (path == titlee) return false;
+    else return true;
   }
 
   runOnRouteChange(): void {

@@ -1,10 +1,6 @@
-<div class="d-flex justify-content-center h-100-vh bg-black" id="camara_content">
+<div class="d-flex justify-content-center" id="camara_content">
   <div class="position-relative w-100 bg-black">
-    <div class="mensajes position-absolute">
-      <div *ngIf="pos" class="hole" [ngStyle]="{ left: pos?.x + 'px', top: pos?.y + 'px', width: pos?.w + 'px', height: pos?.h + 'px' }"></div>
-      <span class="label" [ngStyle]="{ color: colorMsg }"> {{ msgWebS?.msg }} &nbsp; </span>
-      <!-- <img src="assets/img/faceScann.gif" alt=""> -->
-    </div>
+    <div *ngIf="pos" class="hole" [ngStyle]="{ left: pos?.x + 'px', top: pos?.y + 'px', width: pos?.w + 'px', height: pos?.h + 'px' }"></div>
 
     <webcam
       *ngIf="initCamara"

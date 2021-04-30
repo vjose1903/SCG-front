@@ -12,7 +12,7 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: '',
+    path: 'app',
     loadChildren: () => import('./layouts/layout.module').then((m) => m.LayoutModule),
     canActivate: [AuthGuard],
   },
@@ -23,7 +23,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'dashboard',
+    redirectTo: 'app/dashboard',
   },
 ];
 
