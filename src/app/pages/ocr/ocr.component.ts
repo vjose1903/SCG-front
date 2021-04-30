@@ -43,7 +43,8 @@ export class OCRComponent implements OnInit {
 
       new OcrC().createOne(obj, null, 'externo').then(
         (res) => {
-          console.log(res);
+          const text = res['body'].responses[0].fullTextAnnotation.text.split('\n');
+          console.log(text);
         },
         (err) => {},
       );
