@@ -1,1 +1,9 @@
-<pantalla-camara #PantallaCamara [tipo]="'ocr'" (get_base64)="get_base64($event)"></pantalla-camara>
+
+<div class="mensajes">
+  <span class="label" [ngStyle]="{ color: colorMsg }"> {{ msgWebS?.msg }} &nbsp; </span>
+</div>
+
+<pantalla-camara #PantallaCamara [tipo]="'ocr'" (get_base64)="get_base64($event)" [(colorMsg)]="colorMsg" [(msgWebS)]="msgWebS"></pantalla-camara>
+<button class="btn btn-secundary w-100" style="border-radius: 30px" (click)="iniciarReconocimiento()">Iniciar Reconocimiento</button>
+
+

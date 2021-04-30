@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { colors } from 'src/app/core/typescript/GLOBAL';
 
 import { OcrC } from './ocr';
 
@@ -8,14 +9,16 @@ import { OcrC } from './ocr';
   styleUrls: ['./ocr.component.scss'],
 })
 export class OCRComponent implements OnInit {
-  @ViewChild('PantallaCamara', { static: true }) PantallaCamara2: any;
+  @ViewChild('PantallaCamara', { static: true }) PantallaCamara: any;
+  colorMsg = colors.white;
+  msgWebS;
 
   constructor() {}
 
   ngOnInit(): void {}
 
   get_base64(base64) {
-    console.log('base64 --> ', base64);
+    // console.log('base64 --> ', base64);
     this.leerBase64(base64).then((res) => {
       if (res['is_valid']) {
       } else {
@@ -23,8 +26,8 @@ export class OCRComponent implements OnInit {
     });
   }
 
-  p() {
-    this.PantallaCamara2.captureImage();
+  iniciarReconocimiento() {
+    this.PantallaCamara.captureImage();
   }
 
   leerBase64(base64) {
@@ -38,10 +41,12 @@ export class OCRComponent implements OnInit {
 
       console.log('obj --> ', obj);
 
-      // new OcrC().createOne(obj,null,'externo').then(
-      //   (res) => {},
-      //   (err) => {},
-      // );
+      new OcrC().createOne(obj, null, 'externo').then(
+        (res) => {
+          console.log(res);
+        },
+        (err) => {},
+      );
       resolve(true);
     });
     return promise;

@@ -51,7 +51,8 @@ export class CrudG<T> {
 
   makeUrl(tipo, args?, id = null) {
     let url = `${environment.backend_url}/${this.path}`;
-    if (tipo === 'externo') return this.path;
+    const proxyurl = 'https://cors-anywhere.herokuapp.com/';
+    if (tipo === 'externo') return `${proxyurl}${this.path}`;
 
     if (id) url += `/${id}`;
     if (_.has(args, 'afterPath')) url += `/${args.afterPath}`;

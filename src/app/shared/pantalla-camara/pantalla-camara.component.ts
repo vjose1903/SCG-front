@@ -247,14 +247,16 @@ export class PantallaCamaraComponent implements OnInit, AfterViewInit, DoCheck {
     const base64 = webcamImage.imageAsDataUrl;
 
     this.compressImg(base64).then((compress) => {
-      // this.get_base64.emit(compress.img);
       switch (this.tipo) {
         case 'face':
           this.ws.sendMessage('process_image', { msg: compress.img });
           break;
 
         case 'ocr':
-          this.ws.sendMessage('process_placa', { msg: compress.img });
+          // this.ws.sendMessage('process_placa', { msg: compress.img });
+          const base64 = compress.img.split('base64,');
+          this.get_base64.emit(base64[1]);
+
           break;
 
         default:
