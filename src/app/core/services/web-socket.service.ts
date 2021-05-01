@@ -31,8 +31,8 @@ export class WebSocketService {
   private create(): Subject<MessageEvent> {
     // console.log('creando websocket');
 
-    this.ws = new WebSocket(`ws://${environment.ms_url}/`);
-    // this.ws = new WebSocket(`wss://${environment.ms_url}/`);
+    // this.ws = new WebSocket(`ws://${environment.ms_url}/`);
+    this.ws = new WebSocket(`wss://${environment.ms_url}/`);
 
     let observable = Observable.create((obs: Observer<MessageEvent>) => {
       this.ws.onopen = (msg) => {
